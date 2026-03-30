@@ -11,6 +11,7 @@ const authSchema = new mongoose.Schema({
 
   email: {
     type: String,
+    unique : true,
     validate: {
       validator: (value) => validator.validate(value),
       message: "Invalid Email Address",

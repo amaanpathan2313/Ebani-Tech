@@ -2,6 +2,7 @@
 const express = require('express');
 const databaseConnect = require('./config/db.config');
 const authRoute = require('./routes/auth.route');
+const taskRouter = require('./routes/task.route');
 require('dotenv').config();
  
 
@@ -20,6 +21,8 @@ app.get('/test', (req, res) => {
 });
 
 app.use('/auth', authRoute);  // Authentication Route
+
+app.use('/task', taskRouter); // Task CURD operation
 
 
 
