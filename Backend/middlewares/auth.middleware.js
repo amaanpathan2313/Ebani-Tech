@@ -16,7 +16,7 @@ const authMiddleware = (role) => {
     if (decoded) {
       if (role.includes(decoded.role)) {
         req.userId = decoded.id;
-        // req.userRole = decoded.role;
+        req.userRole = decoded.role;
         next();
       } else {
         res.status(403).json({ msg: "You are not allowed" });
