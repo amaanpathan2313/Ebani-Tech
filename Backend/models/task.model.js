@@ -1,0 +1,3 @@
+
+const mongoose = required('mongoose');
+
