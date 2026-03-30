@@ -1,4 +1,7 @@
+
 const AuthModel = require("../models/auth.model");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const express = require('express');
 
@@ -9,7 +12,8 @@ authRoute.post('/sign-up', async(req, res) => {
     const {name, phon, email, password} = req.body;
     const {role} = req.body;
 
-    if(!name && !phon && !email && !password){
+    console.log(password)
+    if(!name || !phon || !email || !password){
          res.status(406).json({msg : "Fill All details correctly ! "});
          return;
     }
@@ -26,6 +30,10 @@ authRoute.post('/sign-up', async(req, res) => {
             res.status(406).json({msg : `${email} is already register with system plz login`});
             return;
         }
+
+        bcrypt.hash(password, saltRounds, function(err, hash) {
+            // Store hash in your password DB.
+           });
 
          await AuthModel.create({name, phon, email, password, role});
 
