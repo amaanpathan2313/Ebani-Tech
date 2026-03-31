@@ -12,7 +12,6 @@ const authMiddleware = (role) => {
 
 
     try{
-
     
 
     var decoded = jwt.verify(token, process.env.JWT_KEY);

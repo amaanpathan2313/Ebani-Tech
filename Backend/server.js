@@ -3,6 +3,7 @@ const express = require('express');
 const databaseConnect = require('./config/db.config');
 const authRoute = require('./routes/auth.route');
 const taskRouter = require('./routes/task.route');
+const adminRoute = require('./routes/admin.action.route');
 require('dotenv').config();
  
 
@@ -24,6 +25,7 @@ app.use('/auth', authRoute);  // Authentication Route
 
 app.use('/task', taskRouter); // Task CURD operation
 
+app.use('/admin', adminRoute); // Admin - Super admin route
 
 
 app.use((req,res) => {
