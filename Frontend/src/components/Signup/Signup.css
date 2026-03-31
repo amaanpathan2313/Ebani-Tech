@@ -1,0 +1,90 @@
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Container */
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Form Box */
+.form {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: 0.3s ease;
+}
+
+.form:hover {
+  transform: translateY(-5px);
+}
+
+/* Heading */
+.form h2 {
+  text-align: center;
+  color: #333;
+}
+
+/* Inputs */
+.form input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 5px rgba(102,126,234,0.5);
+}
+
+/* Button */
+.form button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #667eea;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form button:hover {
+  background: #5a67d8;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+/* Mobile (default already optimized) */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .form {
+    width: 80%;
+    padding: 1.5rem;
+  }
+}
+
+/* Laptop / Desktop */
+@media (min-width: 1024px) {
+  .form {
+    width: 400px;
+    padding: 2.5rem;
+  }
+}

@@ -1,12 +1,11 @@
- import React, { useState } from 'react'
-import "./signup.css";
 
-export const Signup = () => {
+ import React, { useState } from 'react'
+import "./login.css";
+
+export const Login = () => {
 
   const [userInfo, setUserInfo] = useState({
-    name : "",
     email : "",
-    phon : "",
     password : ""
   });
 
@@ -18,22 +17,16 @@ export const Signup = () => {
   function handelSubmit(e){
     e.preventDefault();
 
-    if(!userInfo.name || !userInfo.email || !userInfo.password){
+    if(!userInfo.email || !userInfo.password){
       alert("Plz fill all Details !");
       return;
     }
 
-    if(userInfo.phon.length != 10){
-      alert("Enter 10 digit phon number !");
-      return;
-    }
 
     console.log(userInfo);
 
     setUserInfo({
-      name : "",
       email : "",
-      phon : "",
       password : ""
     });
   };
@@ -41,14 +34,11 @@ export const Signup = () => {
   return (
     <div className="container">
       <form className="form" onSubmit={handelSubmit}>
-        <h2>Signup</h2>
-
-        <input type="text" placeholder='Enter Your Name' name='name' value={userInfo.name} onChange={handelChange} />
+        <h2>Login</h2>
         <input type="email" placeholder='Enter Your Email' name='email' value={userInfo.email} onChange={handelChange} />
-        <input type="text" placeholder='Enter Your Phone Number' name='phon' value={userInfo.phon} onChange={handelChange} />
         <input type="password" placeholder='Enter Your Password' name='password' value={userInfo.password} onChange={handelChange} />
 
-        <button type="submit">Signup</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
