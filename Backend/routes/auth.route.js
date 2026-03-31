@@ -67,10 +67,10 @@ authRoute.post("/login", async (req, res) => {
 
   try {
     let targetUser = await AuthModel.findOne({email});
-    console.log(targetUser._id)
+    console.log(targetUser)
 
     if (!targetUser) {
-      res.status(404).json({ msg: `User not found with ${email} plz login !` });
+      res.status(404).json({ msg: `User not found with ${email} plz Sign-up !` });
       return;
     }
 

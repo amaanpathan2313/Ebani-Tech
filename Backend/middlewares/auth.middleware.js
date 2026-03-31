@@ -10,9 +10,13 @@ const authMiddleware = (role) => {
       return;
     }
 
-    var decoded = jwt.verify(token, process.env.JWT_KEY);
-    // console.log(decoded); // bar
 
+    try{
+
+    
+
+    var decoded = jwt.verify(token, process.env.JWT_KEY);
+    console.log(decoded.role, role); // bar
     if (decoded) {
       if (role.includes(decoded.role)) {
         req.userId = decoded.id;
@@ -21,9 +25,12 @@ const authMiddleware = (role) => {
       } else {
         res.status(403).json({ msg: "You are not allowed" });
       }
-    } else {
-      return res.status(403).json({ msg: "Invalid Token" });
     }
+    }catch(err){
+      res.status(403).json({ msg: "Invalid Token" });
+      return;
+    }
+    
   };
 }; // authMiddleware
 

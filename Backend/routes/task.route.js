@@ -76,7 +76,7 @@ taskRouter.patch(
 // get Task
 taskRouter.get(
   "/my-task",
-  authMiddleware(["user" || "admin" || "s_admin"]),
+  authMiddleware(["user", "admin" , "s_admin"]),
   async (req, res) => {
     const { id } = req.params;
     const userId = req.userId;
@@ -105,7 +105,7 @@ taskRouter.get(
 // delete Task
 taskRouter.delete(
   "/delete-task/:id",
-  authMiddleware(["user" || "admin" || "s_admin"]),
+  authMiddleware(["user" , "admin" , "s_admin"]),
   async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
