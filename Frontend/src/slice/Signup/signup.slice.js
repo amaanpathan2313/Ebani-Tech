@@ -50,7 +50,7 @@ export const signupUser = createAsyncThunk(
        .addCase(signupUser.rejected, (state, action) => {
               state.isLoading = false,
               state.isError = true,
-              console.log("---: " ,action.payload)
+              // console.log("---: " ,action.payload)
               state.data = action.payload
        })
     }
