@@ -1,45 +1,96 @@
-
- import React, { useState } from 'react'
+ 
+ import React, { useEffect, useState } from "react";
 import "./login.css";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../slice/Login/login.slice";
+import { useNavigate, Link } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({
-    email : "",
-    password : ""
+    email: "",
+    password: "",
   });
 
-  function handelChange(e){
-    const {value, name} = e.target;
-    setUserInfo((previous) => ({...previous, [name] : value}));
-  };
+  const { isAuthenticated, isLoading, isError, error, data } =
+    useSelector((store) => store.loginUser);
 
-  function handelSubmit(e){
+  useEffect(() => {
+    if (isError) {
+      alert(error || "Login failed!");
+    }
+  }, [isError, error]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      alert(data?.msg || "Login successful!");
+
+      // navigate after success
+      localStorage.setItem("token", data.token)
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, data, navigate]);
+
+  /* 🟡 Handle Input Change */
+  function handelChange(e) {
+    const { name, value } = e.target;
+    setUserInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  /* 🔵 Handle Submit */
+  async function handelSubmit(e) {
     e.preventDefault();
 
-    if(!userInfo.email || !userInfo.password){
-      alert("Plz fill all Details !");
+    if (!userInfo.email || !userInfo.password) {
+      alert("Please fill all details!");
       return;
     }
 
+    dispatch(loginUser(userInfo));
 
-    console.log(userInfo);
+    
 
     setUserInfo({
-      email : "",
-      password : ""
+      email: "",
+      password: "",
     });
-  };
+  }
 
   return (
     <div className="container">
       <form className="form" onSubmit={handelSubmit}>
         <h2>Login</h2>
-        <input type="email" placeholder='Enter Your Email' name='email' value={userInfo.email} onChange={handelChange} />
-        <input type="password" placeholder='Enter Your Password' name='password' value={userInfo.password} onChange={handelChange} />
 
-        <button type="submit">Login</button>
+        <input
+          type="email"
+          placeholder="Enter Your Email"
+          name="email"
+          value={userInfo.email}
+          onChange={handelChange}
+        />
+
+        <input
+          type="password"
+          placeholder="Enter Your Password"
+          name="password"
+          value={userInfo.password}
+          onChange={handelChange}
+        />
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
+
+        <span>
+          Don’t have an account?{" "}
+          <Link to="/signup">Signup</Link>
+        </span>
       </form>
     </div>
   );
-}
+};
