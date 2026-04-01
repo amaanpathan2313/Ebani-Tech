@@ -6,16 +6,19 @@ const taskRouter = require('./routes/task.route');
 const adminRoute = require('./routes/admin.action.route');
 require('dotenv').config();
  
-
-
 const app = express();
+var cors = require('cors')
+
 
 app.use(express.json());  
 
 databaseConnect();  //   Data Base Connection function
 
+app.use(cors()); 
 
 // --------------------   Routes  --------------------
+
+
 
 app.get('/test', (req, res) => {
     res.json({msg : `I am Test Router`})

@@ -5,7 +5,7 @@ var validator = require("email-validator");
 const authSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
     minLength: 3,
   },
 
@@ -20,11 +20,11 @@ const authSchema = new mongoose.Schema({
   phon: {
     type: String,
     minLength: 10,
-    require: true,
+    // required: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
 
   role: {

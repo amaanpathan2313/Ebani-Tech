@@ -14,7 +14,7 @@ authRoute.post("/sign-up", async (req, res) => {
   const { name, phon, email, password } = req.body;
   const { role } = req.body;
 
-  console.log(password);
+  // console.log(password, name, email, phon);
   if (!name || !phon || !email || !password) {
     res.status(406).json({ msg: "Fill All details correctly ! " });
     return;
@@ -23,14 +23,15 @@ authRoute.post("/sign-up", async (req, res) => {
     res.status(406).json({ msg: "Enter Correct Phon Number ! " });
     return;
   }
-
+  
   try {
     let existUser = await AuthModel.findOne({ email });
-
+   
+    
     if (existUser) {
       res
-        .status(406)
-        .json({ msg: `${email} is already register with system plz login` });
+      .status(406)
+      .json({ msg: `${email} is already register with system plz login` });
       return;
     }
 
@@ -67,7 +68,7 @@ authRoute.post("/login", async (req, res) => {
 
   try {
     let targetUser = await AuthModel.findOne({email});
-    console.log(targetUser)
+    // console.log(targetUser)
 
     if (!targetUser) {
       res.status(404).json({ msg: `User not found with ${email} plz Sign-up !` });
