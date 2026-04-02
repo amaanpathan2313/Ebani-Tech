@@ -1,1 +1,155 @@
 
+/* Root */
+.dashboard {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.task-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 220px;
+  transition: 0.3s;
+}
+
+.task-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.task-form button {
+  padding: 10px 15px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.task-form button:hover {
+  background: #0056b3;
+}
+
+/* TASK GRID */
+.task-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+/* TASK CARD */
+.task-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+  animation: fadeIn 0.4s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+}
+
+/* COMPLETED */
+.task-card.completed {
+  background: #e6ffe6;
+  text-decoration: line-through;
+}
+
+/* BUTTONS */
+.btn-group {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-group button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-group button:hover {
+  opacity: 0.8;
+}
+
+.delete {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* STATUS */
+.status {
+  text-align: center;
+}
+
+.error {
+  text-align: center;
+  color: red;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 MOBILE */
+@media (max-width: 480px) {
+  .task-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .task-form input {
+    width: 100%;
+  }
+}
+
+/* 📱 TABLET */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+  }
+}
+
+/* 💻 LAPTOP */
+@media (max-width: 1024px) {
+  .task-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 🖥 DESKTOP */
+@media (min-width: 1025px) {
+  .task-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
