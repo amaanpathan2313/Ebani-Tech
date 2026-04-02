@@ -28,8 +28,13 @@ export const Login = () => {
       alert(data?.msg || "Login successful!");
 
       // navigate after success
-      localStorage.setItem("token", data.token)
-      navigate("/dashboard");
+      localStorage.setItem("token", data.token);
+
+      let token = localStorage.getItem("token");
+      if(token){
+
+        navigate("/dashboard");
+      }
     }
   }, [isAuthenticated, data, navigate]);
 
@@ -52,8 +57,6 @@ export const Login = () => {
     }
 
     dispatch(loginUser(userInfo));
-
-    
 
     setUserInfo({
       email: "",

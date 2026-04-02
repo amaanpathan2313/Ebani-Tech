@@ -2,12 +2,16 @@
 import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../../context/Task";
 import "./dashboard.css";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
   });
+
+
+  const navigate = useNavigate();
 
   const {
     getTasks,
@@ -63,8 +67,15 @@ const Dashboard = () => {
     getTasks();
   }
 
+  function handelLogout(){
+    localStorage.removeItem("token");
+     navigate('/login')    
+  }
+
   return (
     <div className="dashboard">
+
+      <button onClick={handelLogout}>Logout</button>
       <h1 className="title">Task Dashboard</h1>
 
       {/* FORM */}

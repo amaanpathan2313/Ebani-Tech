@@ -34,10 +34,10 @@ taskRouter.post(
 
 taskRouter.patch(
   "/update-task/:id",
-  authMiddleware(["user" || "admin" || "s_admin"]),
+  authMiddleware(["user", "admin", "s_admin"]),
   async (req, res) => {
     const { id } = req.params;
-    const updateData = req.body;
+    // const updateData = req.body;
     const userId = req.userId;
     const role = req.userRole;
 
@@ -54,9 +54,15 @@ taskRouter.patch(
         role == "admin" ||
         role == "s_admin"
       ) {
-        await TaskModel.findByIdAndUpdate(id, updateData, { new: true });
 
-        res.status(200).json({ msg: "Task Update" });
+        const updateTask = {
+          status: !targetTask.status
+        };
+
+
+       let update = await TaskModel.findByIdAndUpdate(id, updateTask, { returnDocument: "after" });
+
+        res.status(200).json({ msg: "Task Update" , update});
       } else {
         res
           .status(401)
