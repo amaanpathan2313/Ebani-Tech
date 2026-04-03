@@ -1,4 +1,3 @@
- 
  import React, { useEffect, useState } from "react";
 import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,30 +16,30 @@ export const Login = () => {
   const { isAuthenticated, isLoading, isError, error, data } =
     useSelector((store) => store.loginUser);
 
+  /* 🔴 Handle Errors */
   useEffect(() => {
     if (isError) {
       alert(error || "Login failed!");
     }
   }, [isError, error]);
 
+  /* 🟢 Handle Success */
   useEffect(() => {
-    if (isAuthenticated) {
-      alert(data?.msg || "Login successful!");
-
-      // navigate after success
+    if (isAuthenticated && data?.token) {
+      // Store token
       localStorage.setItem("token", data.token);
 
-      let token = localStorage.getItem("token");
-      if(token){
+      alert(data?.msg || "Login successful!");
 
-        navigate("/dashboard");
-      }
+      // Redirect
+      navigate("/dashboard");
     }
   }, [isAuthenticated, data, navigate]);
 
   /* 🟡 Handle Input Change */
   function handelChange(e) {
     const { name, value } = e.target;
+
     setUserInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -48,7 +47,7 @@ export const Login = () => {
   }
 
   /* 🔵 Handle Submit */
-  async function handelSubmit(e) {
+  function handelSubmit(e) {
     e.preventDefault();
 
     if (!userInfo.email || !userInfo.password) {
@@ -57,11 +56,6 @@ export const Login = () => {
     }
 
     dispatch(loginUser(userInfo));
-
-    setUserInfo({
-      email: "",
-      password: "",
-    });
   }
 
   return (

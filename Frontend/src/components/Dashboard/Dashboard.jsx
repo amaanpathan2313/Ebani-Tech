@@ -1,5 +1,4 @@
-
-import { useContext, useEffect, useState } from "react";
+ import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../../context/Task";
 import "./dashboard.css";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,6 @@ const Dashboard = () => {
     title: "",
     description: "",
   });
-
 
   const navigate = useNavigate();
 
@@ -23,10 +21,18 @@ const Dashboard = () => {
     changeStatus,
   } = useContext(TaskContext);
 
+  /* 🔐 Auth Guard */
   useEffect(() => {
-    getTasks();
-  }, []);
+    const token = localStorage.getItem("token");
 
+    if (!token) {
+      navigate("/login", { replace: true });
+    } else {
+      getTasks();
+    }
+  }, [navigate]);
+
+  /* 🗑 Delete Task Effect */
   useEffect(() => {
     if (deleteTaskMsg?.msg) {
       alert(deleteTaskMsg.msg);
@@ -34,18 +40,30 @@ const Dashboard = () => {
     }
   }, [deleteTaskMsg]);
 
+  /* ➕ Add Task Effect */
   useEffect(() => {
     if (addTaskMsg?.msg) {
       alert(addTaskMsg.msg);
       getTasks();
+
+      // reset form after success
+      setNewTask({
+        title: "",
+        description: "",
+      });
     }
   }, [addTaskMsg]);
 
   function handelChange(e) {
     const { name, value } = e.target;
-    setNewTask((prev) => ({ ...prev, [name]: value }));
+
+    setNewTask((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
 
+  /* 🔵 Submit Handler */
   async function handelSubmit(e) {
     e.preventDefault();
 
@@ -55,11 +73,6 @@ const Dashboard = () => {
     }
 
     await addNewTask(newTask);
-
-    setNewTask({
-      title: "",
-      description: "",
-    });
   }
 
   async function handleStatus(id) {
@@ -67,15 +80,15 @@ const Dashboard = () => {
     getTasks();
   }
 
-  function handelLogout(){
+  function handelLogout() {
     localStorage.removeItem("token");
-     navigate('/login')    
+    navigate("/login", { replace: true });
   }
 
   return (
     <div className="dashboard">
-
       <button onClick={handelLogout}>Logout</button>
+
       <h1 className="title">Task Dashboard</h1>
 
       {/* FORM */}
@@ -87,6 +100,7 @@ const Dashboard = () => {
           placeholder="Enter Title"
           onChange={handelChange}
         />
+
         <input
           type="text"
           name="description"
@@ -94,19 +108,24 @@ const Dashboard = () => {
           placeholder="Enter Description"
           onChange={handelChange}
         />
+
         <button type="submit">Add Task</button>
       </form>
 
       {/* STATUS */}
       {taskObj.taskLoading && <p className="status">Loading...</p>}
-      {taskObj.taskError && <p className="error">Error fetching tasks</p>}
+      {taskObj.taskError && (
+        <p className="error">Error fetching tasks</p>
+      )}
 
       {/* TASK LIST */}
       <div className="task-container">
         {taskObj.taskArray?.map((task) => (
           <div
             key={task._id}
-            className={`task-card ${task.status ? "completed" : ""}`}
+            className={`task-card ${
+              task.status ? "completed" : ""
+            }`}
           >
             <h4>{task.title}</h4>
             <p>{task.description}</p>
