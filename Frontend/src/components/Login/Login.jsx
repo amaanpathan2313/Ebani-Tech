@@ -16,14 +16,12 @@ export const Login = () => {
   const { isAuthenticated, isLoading, isError, error, data } =
     useSelector((store) => store.loginUser);
 
-  /* 🔴 Handle Errors */
   useEffect(() => {
     if (isError) {
       alert(error || "Login failed!");
     }
   }, [isError, error]);
 
-  /* 🟢 Handle Success */
   useEffect(() => {
     if (isAuthenticated && data?.token) {
       // Store token
@@ -36,7 +34,6 @@ export const Login = () => {
     }
   }, [isAuthenticated, data, navigate]);
 
-  /* 🟡 Handle Input Change */
   function handelChange(e) {
     const { name, value } = e.target;
 
@@ -46,7 +43,6 @@ export const Login = () => {
     }));
   }
 
-  /* 🔵 Handle Submit */
   function handelSubmit(e) {
     e.preventDefault();
 

@@ -1,88 +1,66 @@
 
+
+```md
+# 🚀 Ebani Tech – TaskFlow (MERN Stack)
+
+A modern **Task Management Web Application** built using the **MERN Stack** with secure authentication and role-based access control.
+
+🌐 **Live Demo**  
+👉 Frontend: https://taskflow23.netlify.app/  
+👉 Backend API: https://ebani-tech-1.onrender.com  
+
 ---
-
-# 🚀 Ebani Tech - Full Stack Task Management System
-
-A full-stack application built using the **MERN stack (MongoDB, Express, React, Node.js)** with **JWT Authentication** and **Role-Based Access Control (RBAC)**.
-
----
-
-## 📦 Tech Stack
-
-### 🔹 Frontend
-
-* React.js
-* Redux Toolkit
-* CSS (Responsive UI)
-
-### 🔹 Backend
-
-* Node.js
-* Express.js
-* MongoDB (Mongoose)
-* JWT Authentication
-* Bcrypt (Password Hashing)
+<!-- DB_LINK =  "mongodb+srv://pamaan44_db_user:v0DUryyjAbjnZKFv@masai-company-assignmen.gqacmbd.mongodb.net/?appName=Masai-Company-Assignment" -->
 
 ---
 
-## ⚙️ Installation & Setup
+## ✨ Features
 
-### 1️⃣ Clone Repository
-
-```bash
-git clone https://github.com/amaanpathan2313/Ebani-Tech.git
-```
-
----
-
-### 2️⃣ Backend Setup
-
-```bash
-cd Ebani-Tech/Backend
-
-npm install
-npm run dev
-```
-
-Create `.env` file:
-
-```env
-PORT=3000
-MONGO_URL=your_mongodb_url
-JWT_KEY=your_secret_key
-```
+- 🔐 JWT Authentication (Login / Signup)
+- 👨‍💼 Role-Based Access (User / Admin / Super Admin)
+- 📋 Task CRUD Operations
+- 🧠 Smart Access Control (users see only their tasks)
+- ⚡ Fast & Responsive UI
+- 🌍 Fully Deployed (Frontend + Backend)
 
 ---
 
-### 3️⃣ Frontend Setup
+## 🧑‍💻 Tech Stack
 
-```bash
-cd ../Frontend
+### Frontend
+- React.js
+- Redux Toolkit
+- CSS (Responsive Design)
 
-npm install
-npm start
-```
+### Backend
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JWT (Authentication)
+- Bcrypt (Password Hashing)
 
 ---
 
-## 🌐 API Base URL
+## 🌐 Live Links
 
-```
-http://localhost:3000
-```
+| Service   | Link |
+|----------|------|
+| 🎨 Frontend | https://taskflow23.netlify.app/ |
+| ⚙️ Backend API | https://ebani-tech-1.onrender.com |
 
 ---
 
 # 🔐 Authentication APIs
 
-## ➤ Sign Up
+## ➤ Signup
 
 ```
+
 POST /auth/sign-up
-```
 
-### Body:
+````
 
+### Request Body:
 ```json
 {
   "name": "Amaan",
@@ -91,13 +69,7 @@ POST /auth/sign-up
   "password": "123456",
   "role": "user"
 }
-```
-
-### Validations:
-
-* All fields required
-* Phone must be 10 digits
-* Email must be unique
+````
 
 ---
 
@@ -107,7 +79,7 @@ POST /auth/sign-up
 POST /auth/login
 ```
 
-### Body:
+### Request Body:
 
 ```json
 {
@@ -129,7 +101,8 @@ POST /auth/login
 
 # 📋 Task APIs
 
-> 🔒 All routes require `Authorization: Bearer <token>`
+> 🔒 Requires Authorization Token
+> `Authorization: Bearer <token>`
 
 ---
 
@@ -149,24 +122,10 @@ POST /task/add-task
 
 ```json
 {
-  "title": "Task Title",
-  "description": "Task Description"
+  "title": "Learn Redux",
+  "description": "Complete Redux Toolkit"
 }
 ```
-
----
-
-## ➤ Update Task
-
-```
-PATCH /task/update-task/:id
-```
-
-### Access:
-
-* Task owner
-* admin
-* s_admin
 
 ---
 
@@ -178,8 +137,22 @@ GET /task/my-task
 
 ### Behavior:
 
-* `user` → Gets only own tasks
-* `admin / s_admin` → Gets all tasks
+* `user` → Only own tasks
+* `admin / s_admin` → All tasks
+
+---
+
+## ➤ Update Task
+
+```
+PATCH /task/update-task/:id
+```
+
+### Access:
+
+* Task Owner
+* Admin
+* Super Admin
 
 ---
 
@@ -191,14 +164,14 @@ DELETE /task/delete-task/:id
 
 ### Access:
 
-* user → own tasks only
-* admin / s_admin → all tasks
+* User → Own tasks only
+* Admin / s_admin → Any task
 
 ---
 
 # 👨‍💼 Admin APIs
 
-> 🔒 Only `admin` and `s_admin`
+> 🔒 Only Admin & Super Admin
 
 ---
 
@@ -211,7 +184,7 @@ PATCH /admin/update-info/:id
 ### Rules:
 
 * Admin ❌ cannot update Super Admin
-* Super Admin ✅ can update anyone
+* Super Admin ✅ full control
 
 ---
 
@@ -226,19 +199,15 @@ DELETE /admin/delete-user/:id
 * Deletes user
 * Deletes all tasks created by that user
 
-### Restriction:
-
-* Admin ❌ cannot delete Super Admin
-
 ---
 
 # 🛡️ Role-Based Access
 
-| Role    | Permissions                               |
-| ------- | ----------------------------------------- |
-| user    | Manage own tasks                          |
-| admin   | Manage all tasks + users (except s_admin) |
-| s_admin | Full system control                       |
+| Role        | Permissions          |
+| ----------- | -------------------- |
+| 👤 user     | Manage own tasks     |
+| 🧑‍💼 admin | Manage users + tasks |
+| 👑 s_admin  | Full system control  |
 
 ---
 
@@ -251,7 +220,6 @@ Ebani-Tech/
 │   ├── models/
 │   ├── routes/
 │   ├── middlewares/
-│   ├── config/
 │   └── server.js
 │
 ├── Frontend/
@@ -263,17 +231,25 @@ Ebani-Tech/
 └── README.md
 ```
 
-
-
 ---
 
-# 🧪 Testing Tools
+# 🧪 Testing
+
+Use:
 
 * Postman
-
 ---
 
- 
+# 🚀 Future Improvements
+
+* Pagination & Filtering
+* Search Tasks
+* Toast Notifications (Frontend)
+* Centralized Error Handling
+* Refresh Token System
+* Rate Limiting & Security Enhancements
+
+---
 
 # 👨‍💻 Author
 
@@ -281,10 +257,18 @@ Ebani-Tech/
 
 ---
 
+# ⭐ Show Your Support
+
+If you like this project:
+
+👉 Star the repo
+👉 Share with others
+👉 Fork & contribute
+
+---
+
 # 📄 License
 
 MIT License
 
----
-
- 
+```
